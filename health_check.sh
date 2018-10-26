@@ -1,0 +1,1 @@
+attempt_counter=0 && max_attempts=60 && until [ $(curl -s -f -w '%{http_code}' localhost:8001/alive/) -eq '200' ] && echo -n '**probe passed after ' && echo -n $(($attempt_counter-1)) && echo -n ' attempts**'; do if [ ${attempt_counter} -eq ${max_attempts} ]; then echo '**Max attempts 60 reached**' && exit 1; else let attempt_counter++ && sleep 1; fi; done
